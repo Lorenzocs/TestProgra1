@@ -39,6 +39,10 @@ public class ScriptAnimation : MonoBehaviour
 
     private void Update()
     {
+        if (PauseManager.statePause == true)
+        {
+            return;
+        }
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         if (movement.y != 0)

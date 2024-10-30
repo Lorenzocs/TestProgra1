@@ -19,7 +19,7 @@ public class PlayerTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameManager.win == true)
+        if (gameManager.win == true || PauseManager.statePause)
         {
             return;
         }

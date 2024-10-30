@@ -3,26 +3,40 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using DG.Tweening;
 public class MenuController : MonoBehaviour
 {
-    public GameObject panelCredits;
-    public GameObject panelMenu;
+    public CanvasGroup panelCredits;
+    public CanvasGroup panelMenu;
     public TextMeshProUGUI title;
+
+    private void Start()
+    {
+        DOTween.Init();
+    }
 
     public void GoToMenu()
     {
-        panelCredits.SetActive(false);
-        panelMenu.SetActive(true);
+        panelCredits.DOFade(0, 1).OnComplete(() => ActiveObject(panelCredits.gameObject, false));
+        panelMenu.gameObject.SetActive(true);
+        panelMenu.DOFade(1, 1).SetDelay(1);
         title.text = "Menu";
     }
 
     public void GoToCredits()
     {
-        panelCredits.SetActive(true);
-        panelMenu.SetActive(false);
+        panelMenu.DOFade(0, 1).OnComplete(  ()=> ActiveObject(panelMenu.gameObject,false));
+        panelCredits.gameObject.SetActive(true);
+        panelCredits.DOFade(1, 1).SetDelay(1);
         title.text = "Credits";
     }
+
+    public void ActiveObject(GameObject go,bool state)
+    {
+        go.SetActive(state);
+    }
+
+
 
     public void GoToScene(string sceneName)
     {
